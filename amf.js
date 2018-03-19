@@ -364,6 +364,8 @@ amf.Client.prototype._send = function(xhr, packet) {
               if (body.targetURI == "/1/onResult") {
                 this.parent.clientId = body.data.clientId;
                 this.promises[i].resolve(null);
+              } else if (body.data.body === null) {
+                this.promises[i].resolve(null);
               } else {
                 if (body.data.body.hasOwnProperty("code") && body.data.body.hasOwnProperty("type") && body.data.body.type < 0) {
                   this.promises[i].reject({code: body.data.body.code, message: body.data.body.message, detail: body.data.body.detail, data:body.data.body.data});
